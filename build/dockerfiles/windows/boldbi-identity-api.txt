@@ -1,0 +1,11 @@
+#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
+
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-nanoserver-1909 AS base
+
+RUN mkdir "C:/boldbi/idp/api"
+WORKDIR "C:/boldbi/idp/api"
+
+EXPOSE 80
+COPY /1 .
+
+CMD ["dotnet", "Syncfusion.Server.IdentityProvider.API.Core.dll"]

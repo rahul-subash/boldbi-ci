@@ -1,0 +1,105 @@
+{
+  "gitcredentials": {
+    "username": "buildautomation",
+    "password": "Coolcomp299"
+  },
+"containerrepodetails": {
+    "containerimageprefix": "gcr.io/boldbi-dev-296107",
+    "containerrepologincommands": [
+      "gcloud auth activate-service-account boldreports@boldbi-dev-296107.iam.gserviceaccount.com --key-file=D:/Devops/boldreports-service-account.json",
+      "ECHO 'Y' | gcloud auth configure-docker"
+    ]
+  },
+  "versioning": {
+    "files": [
+      "bi/src/BI/Web/Syncfusion.Server.Dashboards/Configuration/OnPremise/MSSQL/versioned_scripts/versions.xml",
+      "bi/src/BI/Web/Syncfusion.Server.Dashboards/Configuration/OnPremise/PostgreSQL/versioned_scripts/versions.xml"
+    ]
+  },
+  "optionalassemblies": [
+    "DnsClient.dll",
+    "MongoDB.Bson.dll",
+    "MongoDB.Driver.Core.dll",
+    "MongoDB.Driver.dll",
+    "MongoDB.Driver.Legacy.dll",
+    "MySqlConnector.dll",
+    "InfluxData.Net.dll",
+    "Snowflake.Data.dll",
+    "Oracle.ManagedDataAccess.dll",
+    "Npgsql.dll"
+  ],
+  "projects": [
+    {
+      "name": "bi",
+      "repo": "https://github.com/bold-bi/boldbi-server.git",
+      "branch": "release/boldbi_cloud_v4.2",
+      "buildorder": 2,
+      "buildcmd": "./Build.ps1 -Target PublishCloud -Configuration ReleaseBICloud",
+      "buildoutputs": [
+        {
+          "name": "web",
+          "sourcedir": "output/bi/web",
+          "destdir": "bi/web",
+          "outputdirtype": "output",
+          "containerimagename": "boldbi-server-web-cloud"
+        },
+        {
+          "name": "api",
+          "sourcedir": "output/bi/api",
+          "destdir": "bi/api",
+          "outputdirtype": "output",
+          "containerimagename": "boldbi-server-api-cloud"
+        }
+      ],
+      "afterbuild": {
+        "filecopyactions": [
+          {
+            "sourcedir": "src/BI/Web/Syncfusion.Server.Dashboards/configuration/onpremise",
+            "destdir": "idp/web/configuration/onpremise/boldbi",
+            "outputdirtype": "output"
+          },
+          {
+            "sourcedir": "src/BI/Web/Syncfusion.Server.Dashboards/configuration/db_schema.xml",
+            "destdir": "idp/web/configuration/onpremise/boldbi",
+            "outputdirtype": "output"
+          }
+        ]
+      }
+    },
+	 {
+      "name": "designer",
+      "repo": "https://github.com/bold-bi/dashboard-designer-web-service.git",
+      "branch": "development",
+      "buildorder": 1,
+      "buildcmd": "./build.ps1 -Target Publish -Site dev -publishProfilefilepath E:/KubeMigrate/boldbi-ci/repos/designer/src/Properties/PublishProfiles/local-folder.pubxml",
+      "buildoutputs": [
+        {
+          "name": "dataservice",
+          "sourcedir": "output/dataservice",
+          "destdir": "bi/dataservice",
+          "outputdirtype": "output",
+          "containerimagename": "boldbi-designer-cloud"
+        }
+      ],
+      "afterbuild": {
+        "filecopyactions": [
+          {
+            "sourcedir": "src/scripts",
+            "destdir": "bi/src/BI/Web/Syncfusion.Server.Dashboards/wwwroot/webdesignerservice/scripts",
+            "outputdirtype": "working"
+          },
+          {
+            "sourcedir": "src/themes",
+            "destdir": "bi/src/BI/Web/Syncfusion.Server.Dashboards/wwwroot/webdesignerservice/themes",
+            "outputdirtype": "working"
+          },
+          {
+            "sourcedir": "src/themes/fonts",
+            "destdir": "bi/src/BI/Web/Syncfusion.Server.Dashboards/wwwroot/webdesignerservice/fonts",
+            "outputdirtype": "working"
+          }
+        ]
+      }
+    }
+  ]
+}

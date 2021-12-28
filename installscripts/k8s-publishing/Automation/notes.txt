@@ -1,0 +1,11 @@
+move and unzip the packages
+  => move 4.1 packages inside 4-1_packages
+  => move 4.2 packages inside 4-2_packages
+  
+  => unzip package with timestamp for eg: BoldBIEnterpriseEdition-Linux_4.2.69_07112021_075017
+  => mention this timestamp in the command => -v "4.2.69_07112021_075017"
+
+./build-push-update-automation.sh -b "ubuntu/debian" -t "{Tag}" -v "{timestamp}" -r "development/production" -a "build,push,update"
+
+
+

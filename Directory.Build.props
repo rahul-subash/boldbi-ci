@@ -1,0 +1,9 @@
+﻿<Project>
+  <PropertyGroup>
+    <Version>4.1.40</Version>
+    <Product>Bold BI</Product>
+    <Company>Syncfusion, Inc.</Company>
+    <Copyright>Copyright (c) 2001-2021 Syncfusion, Inc.</Copyright>
+    <NeutralLanguage>en</NeutralLanguage>
+  </PropertyGroup>
+</Project>

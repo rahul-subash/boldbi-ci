@@ -1,0 +1,36 @@
+**Notes**: Replace the Registry, TAG and Base image in the below commands and then proceed
+
+
+########################### Building images ##############################
+
+docker build -t gcr.io/{boldbi-dev-296107 / boldbi-294612}/bold-identity:{TAG} -f {ubuntu / debian}/boldbi-identity.txt ../
+
+docker build -t gcr.io/{boldbi-dev-296107 / boldbi-294612}/bold-identity-api:{TAG} -f {ubuntu / debian}/boldbi-identity-api.txt ../
+
+docker build -t gcr.io/{boldbi-dev-296107 / boldbi-294612}/bold-ums:{TAG} -f {ubuntu / debian}/boldbi-ums.txt ../
+
+docker build -t gcr.io/{boldbi-dev-296107 / boldbi-294612}/boldbi-server:{TAG} -f {ubuntu / debian}/boldbi-server.txt ../
+
+docker build -t gcr.io/{boldbi-dev-296107 / boldbi-294612}/boldbi-server-api:{TAG} -f {ubuntu / debian}/boldbi-server-api.txt ../
+
+docker build -t gcr.io/{boldbi-dev-296107 / boldbi-294612}/boldbi-server-jobs:{TAG} -f {ubuntu / debian}/boldbi-server-jobs.txt ../
+
+docker build -t gcr.io/{boldbi-dev-296107 / boldbi-294612}/boldbi-designer:{TAG} -f {ubuntu / debian}/boldbi-designer.txt ../
+
+
+
+############################ Pushing images ################################
+
+docker push gcr.io/{boldbi-dev-296107 / boldbi-294612}/bold-identity:{TAG}
+
+docker push gcr.io/{boldbi-dev-296107 / boldbi-294612}/bold-identity-api:{TAG}
+
+docker push gcr.io/{boldbi-dev-296107 / boldbi-294612}/bold-ums:{TAG}
+
+docker push gcr.io/{boldbi-dev-296107 / boldbi-294612}/boldbi-server:{TAG}
+
+docker push gcr.io/{boldbi-dev-296107 / boldbi-294612}/boldbi-server-api:{TAG}
+
+docker push gcr.io/{boldbi-dev-296107 / boldbi-294612}/boldbi-server-jobs:{TAG}
+
+docker push gcr.io/{boldbi-dev-296107 / boldbi-294612}/boldbi-designer:{TAG}

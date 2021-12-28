@@ -1,0 +1,18 @@
+#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
+
+FROM mcr.microsoft.com/dotnet/aspnet:3.1-focal AS base
+
+RUN apt-get update && apt-get install -y \
+  fontconfig \
+  libgdiplus
+
+ENV OPENSSL_CONF=/etc/ssl/
+
+WORKDIR /application/bi/dataservice
+EXPOSE 80
+RUN mkdir ../../utilities
+
+COPY application/bi/dataservice .
+COPY application/utilities/customwidgetupgrader ../../utilities/customwidgetupgrader
+
+ENTRYPOINT ["bash", "entrypoint.sh"]

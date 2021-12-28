@@ -1,0 +1,24 @@
+#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
+
+FROM mcr.microsoft.com/dotnet/aspnet:3.1-alpine AS base
+
+RUN apk update
+RUN apk add bash fontconfig
+RUN apk add libgdiplus --repository https://dl-3.alpinelinux.org/alpine/edge/testing/
+
+ENV OPENSSL_CONF=/etc/ssl/
+ENV OS_ENV=alpine
+ENV BOLD_SERVICES_HOSTING_ENVIRONMENT=docker
+ENV OPTIONAL_LIBS=phantomjs,mongodb,mysql,influxdb,snowflake,oracle,npgsql
+
+RUN mkdir -p /run/nginx
+RUN apk add nginx procps jq
+
+WORKDIR /boldbi
+
+EXPOSE 80
+EXPOSE 443
+
+COPY /boldbi .
+
+CMD ./entrypoint.sh
